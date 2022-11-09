@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Rnd } from "react-rnd";
 import Div100vh from "react-div-100vh";
 import html2canvas from "html2canvas";
 
@@ -7,8 +6,8 @@ import { drawImageScaled } from "./utils/canvas.helper";
 import Header from "./components/Header";
 
 import HeadPhoneSrc from "./assets/headphone.png";
-import useCountdown from "./useCountdown";
 import Countdown from "./components/Countdown";
+import useCountdown from "./useCountdown";
 import useHeadphoneController from "./useHeadphoneController";
 
 function App() {
