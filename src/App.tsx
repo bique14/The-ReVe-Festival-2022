@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { gtag, install } from "ga-gtag";
 import Div100vh from "react-div-100vh";
 import html2canvas from "html2canvas";
 
@@ -14,6 +15,10 @@ function App() {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const { stageRef, setIsStageReady } = useHeadphoneController();
   const { dateFormat, setIsShowCountdown } = useCountdown();
+
+  useEffect(() => {
+    install("G-5NJD1QCCJC");
+  }, []);
 
   useEffect(() => {
     const canvas = document.getElementById("canvas")! as HTMLCanvasElement;
