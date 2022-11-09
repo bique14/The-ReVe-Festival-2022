@@ -7,27 +7,13 @@ import { drawImageScaled } from "./utils/canvas.helper";
 import Header from "./components/Header";
 
 import HeadPhoneSrc from "./assets/headphone.png";
-import useHammer from "./useHammer";
 import useCountdown from "./useCountdown";
 import Countdown from "./components/Countdown";
-
-interface IHeadphoneAttributes {
-  width: number | string;
-  height: number | string;
-  x: number;
-  y: number;
-}
-
-const HeadphoneAttributes: IHeadphoneAttributes = {
-  width: 96,
-  height: 96,
-  x: 50,
-  y: 50,
-};
+import useHeadphoneController from "./useHeadphoneController";
 
 function App() {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
-  const { stageRef, setIsStageReady } = useHammer();
+  const { stageRef, setIsStageReady } = useHeadphoneController();
   const { dateFormat, setIsShowCountdown } = useCountdown();
 
   useEffect(() => {
@@ -51,6 +37,8 @@ function App() {
     const selected: File = event.target.files[0];
     const url: string = URL.createObjectURL(selected);
 
+    // document.documentElement.requestFullscreen();
+
     setImageSrc(url);
     setIsStageReady(true);
     setIsShowCountdown(false);
@@ -58,14 +46,12 @@ function App() {
 
   const onCapture = () => {
     const preview = document.getElementById("preview-container")!;
-    const x = document.getElementById("x")!;
 
-    x.style.border = "none";
     html2canvas(preview).then(function (canvas) {
       canvas.toBlob((blob: any) => {
         const url: string = URL.createObjectURL(blob);
+        console.log(url);
         downloadImage(url);
-        x.style.border = "2px dotted white";
       });
     });
   };
@@ -95,50 +81,29 @@ function App() {
           </div>
         )}
 
-        <span className="block text-sm mb-4 text-[rgb(241,63,171)] text-center">
+        <span className="block text-sm -mt-4 text-[rgb(241,63,171)] text-center">
           Choose your picture to wear ReVeluv headphones!
         </span>
         <input
           type="file"
           accept="image/png, image/jpeg"
           onChange={onFileSelect}
+          className="my-4"
         />
 
         {!imageSrc && <Countdown {...dateFormat!} />}
 
         {imageSrc && (
-          <>
-            <div className="flex flex-col text-center text-[10px] italic text-gray-500 my-4">
-              <span>
-                ⭐️ <b>Pinch</b> to rotate, and move the headphone ⭐️
-                <br />
-                ⭐️ <b>Drag</b> the corner to resize headphone ⭐️
-                <br />
-                🤡{" "}
-                <b>
-                  <u>Do not</u>
-                </b>{" "}
-                worry about dotted border its will disappear when snap 🤡
-              </span>
-            </div>
-
-            <div id="preview-container" className="relative overflow-hidden">
-              <canvas id="canvas" className="w-full h-full" />
-              <Rnd
-                id="x"
-                className="border-2 border-dotted border-white sm:hover:border-2 border-dashed border-white"
-                default={HeadphoneAttributes}
-              >
-                <img
-                  id="stage"
-                  ref={stageRef}
-                  className="w-full h-full"
-                  src={HeadPhoneSrc}
-                  draggable={false}
-                />
-              </Rnd>
-            </div>
-          </>
+          <div id="preview-container" className="relative overflow-hidden">
+            <canvas id="canvas" className="w-full h-full" />
+            <img
+              id="stage"
+              ref={stageRef}
+              className="absolute top-0 w-40 h-40"
+              src={HeadPhoneSrc}
+              draggable={false}
+            />
+          </div>
         )}
       </div>
     </Div100vh>
