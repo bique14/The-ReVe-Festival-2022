@@ -18,6 +18,9 @@ function App() {
 
   useEffect(() => {
     console.log(import.meta.env.GA_MESUREMENT);
+    console.log(import.meta.env.VITE_GA_MESUREMENT);
+    console.log(import.meta.env);
+    console.log(process.env.GA_MESUREMENT);
     console.log(process.env.GA_MESUREMENT);
     ReactGA.initialize(import.meta.env.GA_MESUREMENT);
     ReactGA.send("pageview");
