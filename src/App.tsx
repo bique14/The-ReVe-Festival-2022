@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { gtag, install } from "ga-gtag";
+import ReactGA from "react-ga";
 import Div100vh from "react-div-100vh";
 import html2canvas from "html2canvas";
 
@@ -17,7 +17,8 @@ function App() {
   const { dateFormat, setIsShowCountdown } = useCountdown();
 
   useEffect(() => {
-    install("G-5NJD1QCCJC");
+    ReactGA.initialize(process.env.GA_MESUREMENT);
+    ReactGA.pageview(window.location.pathname + window.location.search);
   }, []);
 
   useEffect(() => {
@@ -49,6 +50,11 @@ function App() {
   };
 
   const onCapture = () => {
+    ReactGA.event({
+      category: "engagement",
+      action: "click_download_image",
+    });
+
     const preview = document.getElementById("preview-container")!;
 
     html2canvas(preview).then(function (canvas) {
