@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ReactGA from "react-ga";
+import ReactGA from "react-ga4";
 import Div100vh from "react-div-100vh";
 import html2canvas from "html2canvas";
 
@@ -17,8 +17,9 @@ function App() {
   const { dateFormat, setIsShowCountdown } = useCountdown();
 
   useEffect(() => {
+    console.log(import.meta.env.GA_MESUREMENT);
     ReactGA.initialize(import.meta.env.GA_MESUREMENT);
-    ReactGA.pageview(window.location.pathname + window.location.search);
+    ReactGA.send("pageview");
   }, []);
 
   useEffect(() => {
@@ -51,7 +52,7 @@ function App() {
 
   const onCapture = () => {
     ReactGA.event({
-      category: "engagement",
+      category: "Download Image",
       action: "click_download_image",
     });
 
