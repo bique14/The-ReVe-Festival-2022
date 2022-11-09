@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  @apply h-full;
+}
+
+#root {
+  @apply h-full;
+  background: linear-gradient(
+    180deg,
+    rgba(178, 250, 0, 1) 25%,
+    rgba(241, 63, 171, 1) 80%
+  );
+}
