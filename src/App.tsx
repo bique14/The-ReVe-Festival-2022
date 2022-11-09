@@ -17,6 +17,7 @@ function App() {
   const { dateFormat, setIsShowCountdown } = useCountdown();
 
   useEffect(() => {
+    console.log(import.meta.env.GA_MESUREMENT);
     console.log(process.env.GA_MESUREMENT);
     ReactGA.initialize(import.meta.env.GA_MESUREMENT);
     ReactGA.send("pageview");
