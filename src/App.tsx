@@ -19,6 +19,14 @@ function App() {
   useEffect(() => {
     ReactGA.initialize("G-5NJD1QCCJC");
     ReactGA.send("pageview");
+
+    document.addEventListener(
+      "touchmove",
+      function (e) {
+        e.preventDefault();
+      },
+      { passive: false }
+    );
   }, []);
 
   useEffect(() => {
